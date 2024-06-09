@@ -15,7 +15,7 @@ jobs:
       CARGO_TERM_COLOR: always
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v2
       - name: Fetch dependencies
         run: cargo fetch
       - name: Build test binary
@@ -25,7 +25,7 @@ jobs:
       - name: Build release binary
         run: cargo rustc --release --offline -- -C target-cpu=${{matrix.cpu}}
       - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v2
         with:
           name: ${{matrix.os}}-${{matrix.cpu}}
           path: |
@@ -38,7 +38,7 @@ jobs:
     if: startsWith(github.ref, 'refs/tags/v')
     steps:
       - name: Download artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v2
       - name: Rename artifacts
         run: |
           for path in */*; do
@@ -61,7 +61,7 @@ jobs:
           echo "x86-64-v2 will run on almost any system." >> DESC.txt
           echo "x86-64 is a baseline binary that will run on truly ancient systems." >> DESC.txt
       - name: Make release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v1
         with:
           files: "*/*"
           body_path: DESC.txt
