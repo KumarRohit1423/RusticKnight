@@ -79,7 +79,3 @@ already.
 - Switch to the "RusticKnight" folder.
 - Run "make" (Windows, Linux).
 - The Makefile will build Rustic Knight for the operating system and CPU you're running on.
-
-```
-
-```
