@@ -1,17 +1,16 @@
 name: RusticKnight CI
 
 on:
-  push:
-    branches: ["main"]
-  pull_request:
-    branches: ["main"]
+  - push
+  - pull_request
 
 jobs:
   build:
     strategy:
       matrix:
+        os: [windows-2019, ubuntu-20.04]
         cpu: [x86-64-v3, x86-64-v2, x86-64]
-    runs-on: windows-2019
+    runs-on: ${{matrix.os}}
     env:
       CARGO_TERM_COLOR: always
     steps:
@@ -28,9 +27,11 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: windows-2019-${{matrix.cpu}}
-          path: target/release/rustic-knight.exe
-
+          name: ${{matrix.os}}-${{matrix.cpu}}
+          path: |
+            target/release/rustic-knight
+            target/release/rustic-knight.exe
+          compression-level: 0
   release:
     needs: build
     runs-on: ubuntu-latest
