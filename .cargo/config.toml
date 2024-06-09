@@ -1,0 +1,5 @@
+# On my i5-11300H this resulted in a slight performance improvement.
+# If compiling for maximum portability remove the lines below.
+
+[build]
+rustflags = ['-C', 'target-cpu=native']
