@@ -10,9 +10,8 @@ jobs:
   build:
     strategy:
       matrix:
-        os: [windows-2019, ubuntu-20.04]
         cpu: [x86-64-v3, x86-64-v2, x86-64]
-    runs-on: ${{matrix.os}}
+    runs-on: windows-2019
     env:
       CARGO_TERM_COLOR: always
     steps:
@@ -29,10 +28,8 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: ${{matrix.os}}-${{matrix.cpu}}
-          path: |
-            target/release/rustic-knight
-            target/release/rustic-knight.exe
+          name: windows-2019-${{matrix.cpu}}
+          path: target/release/rustic-knight.exe
 
   release:
     needs: build
